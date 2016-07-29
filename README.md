@@ -1,6 +1,6 @@
 # market-analysis-app
 
-Assignment 10 due 7/19/16
+Assignment 10 due 7/29/16
 
 Assignment for Class
 
@@ -41,7 +41,6 @@ New GitHub repo set up, and working on a feature branch
 Project scaffolding complete, with proper file and folder structure
 Images have been properly sized for project
 Object constructor implemented and used properly for creating objects
-Object literal implemented and used properly for managing the functionality of the app; proper use of methods and properties
 
 User Stories (Stretch)
 
@@ -53,7 +52,3 @@ As a developer, I want to ensure that the user sees all of the objects displayed
 As a developer, I want to sort the list by number of votes received before displaying it, so that the user can easily see their results.
 As a marketer, I want to calculate the percentage of votes-per-appearances for each photo and display that in a separate list.
 As a marketer, I want to come up with another analysis metric based on the number of clicks, and present all of these data points in a table rather than a list.
-
-Helpful Resources
-
-Problem Domain Raw Image Assets
