@@ -2,14 +2,14 @@
 questionCount = 0;
 var buttonsLoc = document.querySelector("#buttons");
 var mainLoc = document.querySelector("#main");
-var tableLoc = document.querySelector("#table");
+//var tableLoc = document.querySelector("#table");
 var pickedImages = [];
 
 //object constructor
 var imageTracker = function (name, source) {
   this.imageSource = source;
-  this.upVotes = 0;
-  this.name = name;
+  this.y = 0; // Y = upVotes; Used for CanvasJS
+  this.label = name;
 }
 
 var imageOptions = [
@@ -26,7 +26,7 @@ var imageOptions = [
   new imageTracker("Unicorn", "img/unicorn.jpg"),
   new imageTracker("USB", "img/usb.jpg"),
   new imageTracker("Water Can", "img/water_can.jpg"),
-  new imageTracker("Wine Glass", "img/wine_glass.jpg"), 
+  new imageTracker("Wine Glass", "img/wine_glass.jpg"),
 ];
 
 //event listener
@@ -37,12 +37,13 @@ function recordClick(event) {
   var clickedImageSource = clickedImage.src;
   for (var index = 0; index < imageOptions.length; index++) {
     if (clickedImageSource.indexOf(imageOptions[index].imageSource) >= 0) {
-      imageOptions[index].upVotes++;
+      imageOptions[index].y++;
+      console.log(imageOptions[index].y);
     } // if clickedImageSource
   } // for index
   questionCount++;
   if (questionCount < 15) {
-    getThreeImages();  
+    getThreeImages();
   } else {
     getThreeImages();
     buttonsLoc.style.display = "block";
@@ -63,31 +64,35 @@ function getThreeImages() {
     }
     document.getElementById("questionsAsked").innerText = questionCount + " of 15 product choices made";
 }
-function genReport () {
-  var table = document.createElement("table");
-  tableLoc.appendChild(table);
-    for (var index = 0; index < imageOptions.length; index++) {
-      var currentImage = imageOptions[index];
-      function rows (cell1, cell2) {
-        var row = document.createElement("tr");
-        var itemCell = document.createElement("td");
-        var upvoteCell = document.createElement("td");
-        var item = document.createTextNode(cell1);
-        var upvote = document.createTextNode(cell2 + " votes");
-        itemCell.appendChild(item);
-        upvoteCell.appendChild(upvote);
-        row.appendChild(itemCell);
-        row.appendChild(upvoteCell);
-        table.appendChild(row);
-      };  //function rows
-      rows (imageOptions[index].name, imageOptions[index].upVotes);
-   };  // for index
+// function genReport () {
+//   var table = document.createElement("table");
+//   tableLoc.appendChild(table);
+//     for (var index = 0; index < imageOptions.length; index++) {
+//       var currentImage = imageOptions[index];
+//       function rows (cell1, cell2) {
+//         var row = document.createElement("tr");
+//         var itemCell = document.createElement("td");
+//         var upvoteCell = document.createElement("td");
+//         var item = document.createTextNode(cell1);
+//         var upvote = document.createTextNode(cell2 + " votes");
+//         itemCell.appendChild(item);
+//         upvoteCell.appendChild(upvote);
+//         row.appendChild(itemCell);
+//         row.appendChild(upvoteCell);
+//         table.appendChild(row);
+//       };  //function rows
+//       rows (imageOptions[index].label, imageOptions[index].y);
+//    };  // for index
+// }
+
+function genReport() {
+initializeChart();
 }
 
 function another15() {
   buttonsLoc.style.display = "none";
   mainLoc.style.display = "block";
-  document.getElementById("table").innerHTML = "";
+  //document.getElementById("table").innerHTML = "";
   questionCount = 0;
   getThreeImages();
 }
