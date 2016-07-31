@@ -2,7 +2,6 @@
 questionCount = 0;
 var buttonsLoc = document.querySelector("#buttons");
 var mainLoc = document.querySelector("#main");
-//var tableLoc = document.querySelector("#table");
 var pickedImages = [];
 
 //object constructor
@@ -64,26 +63,6 @@ function getThreeImages() {
     }
     document.getElementById("questionsAsked").innerText = questionCount + " of 15 product choices made";
 }
-// function genReport () {
-//   var table = document.createElement("table");
-//   tableLoc.appendChild(table);
-//     for (var index = 0; index < imageOptions.length; index++) {
-//       var currentImage = imageOptions[index];
-//       function rows (cell1, cell2) {
-//         var row = document.createElement("tr");
-//         var itemCell = document.createElement("td");
-//         var upvoteCell = document.createElement("td");
-//         var item = document.createTextNode(cell1);
-//         var upvote = document.createTextNode(cell2 + " votes");
-//         itemCell.appendChild(item);
-//         upvoteCell.appendChild(upvote);
-//         row.appendChild(itemCell);
-//         row.appendChild(upvoteCell);
-//         table.appendChild(row);
-//       };  //function rows
-//       rows (imageOptions[index].label, imageOptions[index].y);
-//    };  // for index
-// }
 
 function genReport() {
 initializeChart();
@@ -101,9 +80,9 @@ function quitApp() {
   document.body.innerHTML = "";
   var goodbye = document.createElement("h2");
   document.body.appendChild(goodbye);
-  var goodbyeText = document.createTextNode("Thank you for playing. Your opinions are somewhat valued.");
+  var goodbyeText = document.createTextNode("Thank you for playing. Your opinions are somewhat valued and our service will be diminished accordingly");
   goodbye.appendChild(goodbyeText);
 }
 
-//main program
+//main program, such that is
 getThreeImages();
