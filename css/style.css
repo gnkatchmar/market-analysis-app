@@ -46,3 +46,8 @@ table {
 table, th, td {
   padding: 1px 20px;
  }
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+}

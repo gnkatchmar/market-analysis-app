@@ -2,25 +2,29 @@
 questionCount = 0;
 var buttonsLoc = document.querySelector("#buttons");
 var mainLoc = document.querySelector("#main");
+var chartLoc = document.querySelector("#chart-container");
 var pickedImages = [];
 
 //object constructor
 var imageTracker = function (name, source) {
   this.imageSource = source;
-  this.y = 0; // Y = upVotes; Used for CanvasJS
+  this.y = 0; // y = upVotes; used for CanvasJS charting
   this.label = name;
 }
 
+//added two images to ensure coding flexibility
 var imageOptions = [
   new imageTracker("Bag", "img/bag.jpg"),
   new imageTracker("Banana", "img/banana.jpg"),
   new imageTracker("Boots", "img/boots.jpg"),
+  new imageTracker("Cap", "img/cap.jpg"),
   new imageTracker("Chair", "img/chair.jpg"),
   new imageTracker("Cthulhu", "img/cthulhu.jpg"),
   new imageTracker("Dragon", "img/dragon.jpg"),
   new imageTracker("Pen", "img/pen.jpg"),
   new imageTracker("Scissors", "img/scissors.jpg"),
   new imageTracker("Shark", "img/shark.jpg"),
+  new imageTracker("Spider Mobile", "img/spidermobile.jpg"),
   new imageTracker("Sweep", "img/sweep.jpg"),
   new imageTracker("Unicorn", "img/unicorn.jpg"),
   new imageTracker("USB", "img/usb.jpg"),
@@ -60,18 +64,28 @@ function getThreeImages() {
     var source = imageOptions[index].imageSource;
     document.getElementById("image" + imageID).src = source;
     pickedImages.push(index);
-    }
+    } //for imageID
     document.getElementById("questionsAsked").innerText = questionCount + " of 15 product choices made";
 }
 
 function genReport() {
-initializeChart();
+  chartLoc.style.visibility = "visible";
+  initializeChart();
 }
 
 function another15() {
   buttonsLoc.style.display = "none";
   mainLoc.style.display = "block";
-  //document.getElementById("table").innerHTML = "";
+  chartLoc.style.visibility = "hidden";
+  questionCount = 0;
+  getThreeImages();
+}
+
+function newPlayer() {
+  //don't see how to accomplish this using canvasJS as we can have only one "y" so I can't do a Total Upvotes and New Player's Upvotes
+  buttonsLoc.style.display = "none";
+  mainLoc.style.display = "block";
+  chartLoc.style.visibility = "hidden";
   questionCount = 0;
   getThreeImages();
 }
@@ -80,7 +94,7 @@ function quitApp() {
   document.body.innerHTML = "";
   var goodbye = document.createElement("h2");
   document.body.appendChild(goodbye);
-  var goodbyeText = document.createTextNode("Thank you for playing. Your opinions are somewhat valued and our service will be diminished accordingly");
+  var goodbyeText = document.createTextNode("Thank you for playing. Your opinions are somewhat valued.");
   goodbye.appendChild(goodbyeText);
 }
 
