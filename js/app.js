@@ -3,16 +3,19 @@ questionCount = 0;
 var buttonsLoc = document.querySelector("#buttons");
 var mainLoc = document.querySelector("#main");
 var chartLoc = document.querySelector("#chart-container");
+var chartTitle = "";
 var pickedImages = [];
 
 //object constructor
 var imageTracker = function (name, source) {
   this.imageSource = source;
-  this.y = 0; // y = upVotes; used for CanvasJS charting
+  this.totalUpVotes = 0; //total of all players' upVotes
   this.label = name;
+  this.playerUpVotes = 0; //current player's upvotes
+  this.y = 0; //used for on-the-fly CanvasJS purposes
 }
 
-//added two images to ensure coding flexibility
+  //added two images to test and correct coding flexibility
 var imageOptions = [
   new imageTracker("Bag", "img/bag.jpg"),
   new imageTracker("Banana", "img/banana.jpg"),
@@ -32,7 +35,7 @@ var imageOptions = [
   new imageTracker("Wine Glass", "img/wine_glass.jpg"),
 ];
 
-//event listener
+//event listener and its function
 document.getElementById("image-container").addEventListener("click", recordClick);
 
 function recordClick(event) {
@@ -40,8 +43,8 @@ function recordClick(event) {
   var clickedImageSource = clickedImage.src;
   for (var index = 0; index < imageOptions.length; index++) {
     if (clickedImageSource.indexOf(imageOptions[index].imageSource) >= 0) {
-      imageOptions[index].y++;
-      console.log(imageOptions[index].y);
+      imageOptions[index].totalUpVotes++;
+      imageOptions[index].playerUpVotes++;
     } // if clickedImageSource
   } // for index
   questionCount++;
@@ -59,7 +62,7 @@ function getThreeImages() {
   var pickedImages = [];
   for (var imageID = 1; imageID <= 3; imageID++) {
     do {
-      var index = Math.floor(Math.random() * 14);
+      var index = Math.floor(Math.random() * imageOptions.length);
     } while (pickedImages.indexOf(index) >= 0);
     var source = imageOptions[index].imageSource;
     document.getElementById("image" + imageID).src = source;
@@ -68,11 +71,17 @@ function getThreeImages() {
     document.getElementById("questionsAsked").innerText = questionCount + " of 15 product choices made";
 }
 
+//player's report using playerUpVotes
 function genReport() {
+  for (j = 0; j < imageOptions.length; j++) {
+    imageOptions[j].y = imageOptions[j].playerUpVotes;
+  };
+  chartTitle = "Player Vote Report";
   chartLoc.style.visibility = "visible";
   initializeChart();
 }
 
+//another round for same player or called by newPlayer() after playerUpVotes zeroed
 function another15() {
   buttonsLoc.style.display = "none";
   mainLoc.style.display = "block";
@@ -81,13 +90,12 @@ function another15() {
   getThreeImages();
 }
 
+//New player, zero playerUpVotes
 function newPlayer() {
-  //don't see how to accomplish this using canvasJS as we can have only one "y" so I can't do a Total Upvotes and New Player's Upvotes
-  buttonsLoc.style.display = "none";
-  mainLoc.style.display = "block";
-  chartLoc.style.visibility = "hidden";
-  questionCount = 0;
-  getThreeImages();
+   for (i = 0; i < imageOptions.length; i++) {
+    imageOptions[i].playerUpVotes = 0;
+      };
+  another15();
 }
 
 function quitApp() {
@@ -97,6 +105,17 @@ function quitApp() {
   var goodbyeText = document.createTextNode("Thank you for playing. Your opinions are somewhat valued.");
   goodbye.appendChild(goodbyeText);
 }
+
+//marketer's report using totalUpVotes
+function marketing() {
+//  document.body.innerHTML = "";
+  for (i = 0; i < imageOptions.length; i++) {
+      imageOptions[i].y = imageOptions[i].totalUpVotes;
+  };  //for i
+  chartTitle = "Marketer's Report of All Players' Votes";
+  chartLoc.style.visibility = "visible";
+  initializeChart();
+}  
 
 //main program, such that is
 getThreeImages();
