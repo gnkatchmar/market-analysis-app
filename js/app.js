@@ -53,14 +53,26 @@ function recordClick(event) {
     getThreeImages();
   } else {
     getThreeImages();
+    localStorage.setItem("votes",JSON.stringify(imageOptions)); //store data
     buttonsLoc.style.display = "block";
     mainLoc.style.display = "none";
   } // if/else
 }
 
-
-
 //functions
+//create initial data store or retrieve existing data store
+function loadImageObject() {
+  if (localStorage.getItem("votes") == null) {
+    localStorage.setItem("votes",JSON.stringify(imageOptions));
+  } else {
+    imageOptions = JSON.parse(localStorage.getItem("votes"));
+    for (i = 0; i < imageOptions.length; i++) {
+      imageOptions[i].playerUpVotes = 0; //this is called for new sessions, to rezero player votes
+    };
+  } // if/else 
+}
+
+//display three different images
 function getThreeImages() {
   var pickedImages = [];
   for (var imageID = 1; imageID <= 3; imageID++) {
@@ -74,49 +86,10 @@ function getThreeImages() {
     document.getElementById("questionsAsked").innerText = questionCount + " of 15 product choices made";
 }
 
-function loadImages() {
-  if (localStorage.getItem("images") == null) {
-    
-   /* imageOptions.push(new imageTracker("Bag", "img/bag.jpg"));
-	imageOptions.push(new imageTracker("Banana", "img/banana.jpg"));
-    imageOptions.push(new imageTracker("Boots", "img/boots.jpg"));
-	imageOptions.push(new imageTracker("Cap",   "img/cap.jpg"));
-    imageOptions.push(new imageTracker("Chair", "img/chair.jpg"));
-    imageOptions.push(new imageTracker("Cthulhu", "img/cthulhu.jpg"));
-    imageOptions.push(new imageTracker("Dragon", "img/dragon.jpg"));
-	imageOptions.push(new imageTracker("Pen", "img/pen.jpg"));
-	imageOptions.push(new imageTracker("Scissors", "img/scissors.jpg"));
-	imageOptions.push(new imageTracker("Shark", "img/shark.jpg"));
-	imageOptions.push(new imageTracker("Spider Mobile", "img/spidermobile.jpg"));
-	imageOptions.push(new imageTracker("Sweep", "img/sweep.jpg"));
-	imageOptions.push(new imageTracker("Unicorn", "img/unicorn.jpg"));
-	imageOptions.push(new imageTracker("USB", "img/usb.jpg"));
-	imageOptions.push(new imageTracker("Water Can", "img/water_can.jpg"));
-	imageOptions.push(new imageTracker("Wine Glass", "img/wine_glass.jpg"));
-	console.log("here");
-	*/
-	for(var i=0; i < imageOptions.length; i++)
-	{
-	localStorage.setItem(imageOptions[i].label, imageOptions[i].imageSource );
-	}
-	
-  } else {
-    var storedImages = JSON.parse(localStorage.getItem("images"));
-    for (var index = 0; index < storedImages.length; index++) {
-      var image = storedImages[index];
-      var tracker = new imageTracker(image.label, image.imageSource);
-      tracker.totalUpVotes = image.totalUpVotes;
-      imageOptions.push(tracker);
-    }
-  }
-}
-
-
-
 //player's report using playerUpVotes
 function genReport() {
-  for (j = 0; j < imageOptions.length; j++) {
-    imageOptions[j].y = imageOptions[j].playerUpVotes;
+  for (i = 0; i < imageOptions.length; i++) {
+    imageOptions[i].y = imageOptions[i].playerUpVotes;
   };
   chartTitle = "Player Vote Report";
   chartLoc.style.visibility = "visible";
@@ -160,5 +133,5 @@ function marketing() {
 }  
 
 //main program, such that is
-loadImages();
+loadImageObject();
 getThreeImages();
