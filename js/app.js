@@ -43,6 +43,7 @@ function recordClick(event) {
   var clickedImageSource = clickedImage.src;
   for (var index = 0; index < imageOptions.length; index++) {
     if (clickedImageSource.indexOf(imageOptions[index].imageSource) >= 0) {
+	  //  loadImages();
       imageOptions[index].totalUpVotes++;
       imageOptions[index].playerUpVotes++;
     } // if clickedImageSource
@@ -57,6 +58,8 @@ function recordClick(event) {
   } // if/else
 }
 
+
+
 //functions
 function getThreeImages() {
   var pickedImages = [];
@@ -70,6 +73,45 @@ function getThreeImages() {
     } //for imageID
     document.getElementById("questionsAsked").innerText = questionCount + " of 15 product choices made";
 }
+
+function loadImages() {
+  if (localStorage.getItem("images") == null) {
+    
+   /* imageOptions.push(new imageTracker("Bag", "img/bag.jpg"));
+	imageOptions.push(new imageTracker("Banana", "img/banana.jpg"));
+    imageOptions.push(new imageTracker("Boots", "img/boots.jpg"));
+	imageOptions.push(new imageTracker("Cap",   "img/cap.jpg"));
+    imageOptions.push(new imageTracker("Chair", "img/chair.jpg"));
+    imageOptions.push(new imageTracker("Cthulhu", "img/cthulhu.jpg"));
+    imageOptions.push(new imageTracker("Dragon", "img/dragon.jpg"));
+	imageOptions.push(new imageTracker("Pen", "img/pen.jpg"));
+	imageOptions.push(new imageTracker("Scissors", "img/scissors.jpg"));
+	imageOptions.push(new imageTracker("Shark", "img/shark.jpg"));
+	imageOptions.push(new imageTracker("Spider Mobile", "img/spidermobile.jpg"));
+	imageOptions.push(new imageTracker("Sweep", "img/sweep.jpg"));
+	imageOptions.push(new imageTracker("Unicorn", "img/unicorn.jpg"));
+	imageOptions.push(new imageTracker("USB", "img/usb.jpg"));
+	imageOptions.push(new imageTracker("Water Can", "img/water_can.jpg"));
+	imageOptions.push(new imageTracker("Wine Glass", "img/wine_glass.jpg"));
+	console.log("here");
+	*/
+	for(var i=0; i < imageOptions.length; i++)
+	{
+	localStorage.setItem(imageOptions[i].label, imageOptions[i].imageSource );
+	}
+	
+  } else {
+    var storedImages = JSON.parse(localStorage.getItem("images"));
+    for (var index = 0; index < storedImages.length; index++) {
+      var image = storedImages[index];
+      var tracker = new imageTracker(image.label, image.imageSource);
+      tracker.totalUpVotes = image.totalUpVotes;
+      imageOptions.push(tracker);
+    }
+  }
+}
+
+
 
 //player's report using playerUpVotes
 function genReport() {
@@ -118,4 +160,5 @@ function marketing() {
 }  
 
 //main program, such that is
+loadImages();
 getThreeImages();
