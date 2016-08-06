@@ -16,7 +16,14 @@ h3 {
 #image-container {
   display: flex;
   justify-content: center;
-  }
+  margin-left: -2999px;
+  transition: all 1.4s;
+}
+
+
+#image-container.centered {
+  margin-left: 0px;
+}
 
 nav {
   text-align: center;
