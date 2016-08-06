@@ -74,6 +74,10 @@ function loadImageObject() {
 
 //display three different images
 function getThreeImages() {
+  setTimeout(function(){
+    document.getElementById("image-container").setAttribute("class", "centered");
+}, 1000);
+
   var pickedImages = [];
   for (var imageID = 1; imageID <= 3; imageID++) {
     do {
