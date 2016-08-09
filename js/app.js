@@ -3,6 +3,8 @@ questionCount = 0;
 var buttonsLoc = document.querySelector("#buttons");
 var mainLoc = document.querySelector("#main");
 var chartLoc = document.querySelector("#chart-container");
+var imageLoc = document.getElementById("image-container");
+var chartLoc2 = document.getElementById("chart-container");
 var chartTitle = "";
 var pickedImages = [];
 
@@ -36,7 +38,7 @@ var imageOptions = [
 ];
 
 //event listener and its function
-document.getElementById("image-container").addEventListener("click", recordClick);
+imageLoc.addEventListener("click", recordClick);
 
 function recordClick(event) {
   var clickedImage = event.target;
@@ -49,6 +51,7 @@ function recordClick(event) {
     } // if clickedImageSource
   } // for index
   questionCount++;
+  setTimeout(function(){imageLoc.setAttribute("class", "left");}, 1);
   if (questionCount < 15) {
     getThreeImages();
   } else {
@@ -74,11 +77,9 @@ function loadImageObject() {
 
 //display three different images
 function getThreeImages() {
-  setTimeout(function(){
-    document.getElementById("image-container").setAttribute("class", "centered");
-}, 1000);
-
   var pickedImages = [];
+  imageLoc.setAttribute("class", "left");
+  setTimeout(function(){imageLoc.setAttribute("class", "");}, 1000);
   for (var imageID = 1; imageID <= 3; imageID++) {
     do {
       var index = Math.floor(Math.random() * imageOptions.length);
@@ -97,7 +98,9 @@ function genReport() {
   };
   chartTitle = "Player Vote Report";
   chartLoc.style.visibility = "visible";
-  initializeChart();
+  setTimeout(function(){chartLoc2.setAttribute("class", "fade");}, 0000);
+  setTimeout(function(){chartLoc2.setAttribute("class", "");}, 1000);
+  setTimeout(initializeChart, 1000);
 }
 
 //another round for same player or called by newPlayer() after playerUpVotes zeroed
@@ -127,13 +130,14 @@ function quitApp() {
 
 //marketer's report using totalUpVotes
 function marketing() {
-//  document.body.innerHTML = "";
   for (i = 0; i < imageOptions.length; i++) {
       imageOptions[i].y = imageOptions[i].totalUpVotes;
   };  //for i
   chartTitle = "Marketer's Report of All Players' Votes";
   chartLoc.style.visibility = "visible";
-  initializeChart();
+  setTimeout(function(){chartLoc2.setAttribute("class", "fade");}, 0000);
+  setTimeout(function(){chartLoc2.setAttribute("class", "");}, 1000);
+  setTimeout(initializeChart, 1000);
 }  
 
 //main program, such that is

@@ -8,4 +8,4 @@ function initializeChart() {
   
   chart = new CanvasJS.Chart("chart-container", chartProperties);
   chart.render();
-}
+  }
