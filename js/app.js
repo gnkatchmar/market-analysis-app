@@ -72,7 +72,7 @@ function loadImageObject() {
     for (i = 0; i < imageOptions.length; i++) {
       imageOptions[i].playerUpVotes = 0; //this is called for new sessions, to rezero player votes
     };
-  } // if/else 
+  } // if/else
 }
 
 //display three different images
@@ -138,7 +138,7 @@ function marketing() {
   setTimeout(function(){chartLoc2.setAttribute("class", "fade");}, 0000);
   setTimeout(function(){chartLoc2.setAttribute("class", "");}, 1000);
   setTimeout(initializeChart, 1000);
-}  
+}
 
 //main program, such that is
 loadImageObject();
